@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydrate Formation Risk Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Hydrate Formation Risk Calculator</h1>
+        <form action="/calculate" method="POST">
+            <div class="form-group">
+                <label for="temperature">Temperature (°C)</label>
+                <input type="number" class="form-control" id="temperature" name="temperature" placeholder="Enter temperature (e.g. -4)" required>
+            </div>
+            <div class="form-group">
+                <label for="pressure">Pressure (MPa)</label>
+                <input type="number" class="form-control" id="pressure" name="pressure" placeholder="Enter pressure (e.g. 1)" required>
+            </div>
+            <div class="form-group">
+                <label for="water_pressure">Water Vapor Pressure (MPa)</label>
+                <input type="number" class="form-control" id="water_pressure" name="water_pressure" step="0.01" placeholder="Enter water vapor pressure (e.g. 0.05)" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Calculate Risk</button>
+        </form>
+
+        <div class="mt-5">
+            {% if risk is defined %}
+                <h2>Risk of Hydrate Formation: {{ risk }}</h2>
+                {% if risk > 0 %}
+                    <p><strong>Suggestions to reduce risk:</strong></p>
+                    <ul>
+                        {% for suggestion in suggestions %}
+                            <li>{{ suggestion }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No hydrate formation risk.</p>
+                {% endif %}
+                
+                <h4>Equation Used for Hydrate Formation Risk:</h4>
+                <p>{{ risk_equation }}</p>
+
+                <h4>Clausius-Clapeyron Equation:</h4>
+                <p>{{ clapeyron_equation }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
