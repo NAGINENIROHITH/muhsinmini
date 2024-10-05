@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Python: Flask",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/simflask.py",
+        "args": ["run"],
+        "jinja": true,
+        "env": {
+          "FLASK_APP": "simflask.py",
+          "FLASK_ENV": "development"
+        },
+        "console": "integratedTerminal"
+      }
+    ]
+  }
+  
